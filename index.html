@@ -1,0 +1,1132 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>OS 3.1 — WINTER OS 2027</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:#101522;
+ color:white;
+ font-family:Arial,sans-serif;
+ padding-bottom:80px;
+}
+header{
+ background:linear-gradient(120deg,#0757c8,#1684ff);
+ padding:20px 15px;
+ text-align:center;
+ position:sticky;
+ top:0;
+ z-index:10;
+ box-shadow:0 3px 12px #0005;
+}
+header h1{margin:0;font-size:23px}
+header p{margin:5px 0 0;font-size:12px;opacity:.85}
+body.rb-world header{
+ background:linear-gradient(120deg,#8b0000,#e21b2d 58%,#171717);
+}
+body.rb-world button{background:#c91f32}
+body.rb-world .tabs{background:#24151b}
+body.rb-world .tabs button{background:#4a2029}
+body.rb-world .tabs button:active{background:#e21b2d}
+body.rb-world .notice{background:#c91f32}
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:10px;
+ padding:12px;
+}
+.stat{
+ background:#1c2638;
+ border-radius:13px;
+ padding:13px;
+ border:1px solid #303e55;
+}
+.stat small{color:#9eacc3}
+.stat strong{display:block;font-size:19px;margin-top:6px}
+.tabs{
+ display:flex;
+ gap:7px;
+ overflow-x:auto;
+ padding:10px;
+ background:#151e2d;
+ scrollbar-width:none;
+}
+.tabs button{
+ flex-shrink:0;
+ background:#26344b;
+ color:white;
+ border:0;
+ padding:11px 14px;
+ border-radius:10px;
+ font-weight:bold;
+}
+.tabs button:active{background:#0877ed}
+main{padding:12px}
+h2{font-size:21px;margin:10px 0 15px}
+h3{margin:5px 0 9px}
+.card,.panel{
+ background:#1c2638;
+ border:1px solid #303e55;
+ border-radius:14px;
+ padding:13px;
+ margin-bottom:11px;
+}
+.card{
+ display:flex;
+ align-items:center;
+ gap:12px;
+}
+.emoji{font-size:35px;min-width:42px;text-align:center}
+.info{flex:1;min-width:0}
+.info h3{font-size:15px}
+.info p{font-size:12px;color:#aab8cc;margin:5px 0}
+button{
+ cursor:pointer;
+ border:0;
+ border-radius:9px;
+ padding:10px 13px;
+ font-weight:bold;
+ color:white;
+ background:#1677ee;
+}
+button:disabled{opacity:.4;cursor:not-allowed}
+.green{background:#0b9e65}
+.red{background:#d94343}
+.orange{background:#d88719}
+.gray{background:#45536b}
+.blue{background:#0877ed}
+.small{font-size:12px;padding:8px 10px}
+.price{color:#63e9a5;font-weight:bold}
+.muted{color:#9eacc3;font-size:12px}
+.hidden{display:none!important}
+.progress{
+ height:9px;
+ background:#344157;
+ border-radius:20px;
+ overflow:hidden;
+ margin:10px 0;
+}
+.progress div{
+ height:100%;
+ background:#21d48b;
+ width:0%;
+}
+.badge{
+ display:inline-block;
+ padding:4px 7px;
+ border-radius:6px;
+ background:#344762;
+ font-size:11px;
+ margin:3px 2px;
+}
+.happy{color:#48e4a1}
+.danger{color:#ff7777}
+footer{
+ text-align:center;
+ color:#65758e;
+ padding:25px 10px;
+ font-size:12px;
+}
+.notice{
+ position:fixed;
+ bottom:18px;
+ left:50%;
+ transform:translateX(-50%);
+ background:#0877ed;
+ padding:13px 18px;
+ border-radius:12px;
+ box-shadow:0 4px 20px #0008;
+ z-index:100;
+ display:none;
+ width:max-content;
+ max-width:90%;
+ text-align:center;
+}
+input{
+ background:#101827;
+ color:white;
+ border:1px solid #45536b;
+ border-radius:8px;
+ padding:10px;
+ width:100%;
+ margin:6px 0;
+}
+hr{border:0;border-top:1px solid #354157;margin:13px 0}
+</style>
+<style>
+body.theme-tech header{background:linear-gradient(120deg,#063b63,#00a6c7)!important}
+body.theme-fashion header{background:linear-gradient(120deg,#6b174d,#e65ca8)!important}
+body.theme-auto header{background:linear-gradient(120deg,#252525,#d35400)!important}
+body.theme-space header{background:linear-gradient(120deg,#171044,#5145b8)!important}
+body.theme-tech button.blue{background:#008eae!important}
+body.theme-fashion button.blue{background:#c23b86!important}
+body.theme-auto button.blue{background:#c65316!important}
+body.theme-space button.blue{background:#5145b8!important}
+
+/* WINTER_OS — New Year Update 2027 */
+body{background:radial-gradient(ellipse at top,#20334d 0%,#101522 65%)}
+header{background:linear-gradient(120deg,#073b72,#1684ff 55%,#8bdcff)}
+.winter-flake{position:fixed;top:-24px;z-index:50;pointer-events:none;color:#dff7ff;text-shadow:0 0 8px #9ee7ff;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:.15}}
+.winter-banner{border:1px solid #6fcfff;background:linear-gradient(120deg,#123b5b,#254d70);border-radius:14px;padding:12px;margin:10px 12px;text-align:center}
+.winter-button{background:linear-gradient(120deg,#0877ed,#12a6b8)}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🔵 <span id="ozonTitle">OS</span></h1>
+<p id="ozonSubtitle">Версия 3.1 · Симулятор маркетплейса</p>
+<div id="polarBearEasterEgg" class="hidden" style="margin-top:9px;font-weight:bold;letter-spacing:.5px">
+  <div>remember November 2026 coming</div>
+  <div style="font-size:42px;line-height:1.2" aria-label="Голова белого медведя">🐻‍❄️</div>
+</div>
+</header>
+
+<div class="stats">
+ <div class="stat">
+  <small>💰 Баланс</small>
+  <strong id="money">5 000 ₽</strong>
+ </div>
+ <div class="stat">
+  <small>⭐ Рейтинг</small>
+  <strong id="rating">5.0</strong>
+ </div>
+ <div class="stat">
+  <small>📦 Продано товаров</small>
+  <strong id="sold">0</strong>
+ </div>
+ <div class="stat">
+  <small>🏆 Уровень магазина</small>
+  <strong id="level">1</strong>
+ </div>
+</div>
+
+<div class="tabs">
+ <button onclick="tab('home')">🏠 Магазин</button>
+ <button onclick="tab('tasks')">🎯 Задания</button>
+ <button onclick="tab('market')">🛒 Закупка</button>
+ <button onclick="tab('warehouse')">📦 Склад</button>
+ <button onclick="tab('customers')">👥 Клиенты</button>
+ <button onclick="tab('upgrades')">🚀 Улучшения</button>
+ <button onclick="tab('competitors')">⚔️ Конкуренты</button>
+ <button onclick="tab('logistics')">🏢 Складская сеть</button>
+ <button onclick="tab('portals')">🌀 Порталы</button>
+ <button onclick="tab('secret')">❔ СЕКРЕТ</button>
+ <button onclick="tab('codes')">🔑 Коды</button>
+  <button onclick="tab('rebirth')">🔄 Возрождение</button>
+ <button onclick="tab('winterSettings')">🎄 Зима</button>
+</div>
+
+<main>
+
+<section id="home">
+ <h2>🏠 Твой магазин</h2>
+ <div class="panel">
+  <h3>Добро пожаловать!</h3>
+  <p class="muted">Развивай свой маркетплейс, закупай товары, обслуживай клиентов и зарабатывай деньги.</p>
+  <div class="progress"><div id="levelProgress"></div></div>
+  <p id="levelText" class="muted">Прогресс уровня: 0 / 1000 ₽</p>
+ </div>
+
+ <div class="panel">
+  <h3>📊 Статистика</h3>
+  <p>💵 Всего заработано: <b id="earned">0 ₽</b></p>
+  <p>📦 Всего продано: <b id="sold2">0</b></p>
+  <p>🤝 Обслужено клиентов: <b id="served">0</b></p>
+  <p>🏬 Товаров на складе: <b id="stockCount">0</b></p>
+  <p>🚚 Товаров в пути: <b id="transitCount">0</b></p>
+ </div>
+
+ <div class="panel">
+  <h3>💡 Подсказка</h3>
+  <p class="muted">Закупай товары дешевле, продавай дороже. Следи за клиентами и не забывай доставлять заказы в пункт выдачи!</p>
+ </div>
+</section>
+
+<section id="tasks" class="hidden">
+ <h2>🎯 Задания</h2>
+ <div class="panel">
+  <h3>✈️ Поддержка Telegram-канала</h3>
+  <p class="muted">Перейди в Telegram-канал проекта и получи игровую награду.</p>
+  <p class="price">Награда: +5 000 ₽</p>
+  <button class="blue" id="telegramButton" onclick="telegramTask()">✈️ Перейти в Telegram</button>
+  <p id="taskStatus" class="muted">Задание не выполнено</p>
+  <p class="muted">Игра не может автоматически проверить подписку. Награда выдаётся один раз при нажатии.</p>
+ </div>
+</section>
+
+<section id="market" class="hidden">
+ <h2>🛒 Закупка товаров</h2>
+ <p class="muted">Покупай товары у поставщиков и отправляй их на склад. Всего товаров: 100.</p>
+ <div id="marketList"></div>
+</section>
+
+<section id="warehouse" class="hidden">
+ <h2>📦 Склад</h2>
+ <div class="panel">
+  <p>На складе: <b id="warehouseTotal">0</b> товаров</p>
+  <p>В пути: <b id="transitTotal">0</b> товаров</p>
+  <button class="green" onclick="deliverAll()">🚚 Доставить всё в ПВЗ</button>
+ </div>
+ <div id="warehouseList"></div>
+</section>
+
+<section id="customers" class="hidden">
+ <h2>👥 Клиенты</h2>
+ <div class="panel">
+  <p>Клиенты приходят в твой магазин и хотят получить товары.</p>
+  <p class="muted">Если долго не обслуживать клиентов, рейтинг будет снижаться.</p>
+  <button class="green" onclick="spawnCustomer()">➕ Новый клиент</button>
+ </div>
+ <div id="customerList"></div>
+</section>
+
+<section id="upgrades" class="hidden">
+ <h2>🚀 Улучшения</h2>
+ <p class="muted">Покупай улучшения, чтобы развивать магазин.</p>
+ <div id="upgradeList"></div>
+</section>
+
+<section id="competitors" class="hidden">
+ <h2>⚔️ Конкуренты</h2><div id="competitorAccess"></div>
+ <div id="competitorGame" class="hidden">
+  <div class="panel"><h3>Корпоративная война</h3><p class="muted">Конкуренты атакуют только после объявления войны. Побеждай их строго по очереди.</p>
+   <p>Этап: <b id="warStage">1</b></p><button class="orange" id="declareWarButton" onclick="declareWar()">⚔️ Объявить войну</button><p id="warStatus" class="muted"></p>
+  </div><div id="competitorList"></div>
+ </div>
+</section>
+
+<section id="logistics" class="hidden"><h2>🏢 Складская сеть</h2>
+ <div class="panel"><p>Активный склад: <b id="activeWarehouseName">Ozon</b></p><p>Множитель: <b id="activeWarehouseMultiplier">x1.00</b></p></div><div id="warehouseNetwork"></div>
+</section>
+<section id="portals" class="hidden"><h2>🌀 Порталы</h2><div class="panel"><h3>Red Bull Sport</h3><p>Чтобы открыть первый портал, купи «Ключ к порталам» в разделе «Закупка» за <b>5 000 000 000 ₽</b>. Ключ можно продать за <b>1 000 000 000 ₽</b>, открытие портала после покупки ключа бесплатно.</p><button onclick="buyPortal()">🗝️ Активировать ключ и открыть портал</button></div><div id="portalWorlds"></div></section>
+<section id="secret" class="hidden"><h2>❔ СЕКРЕТ</h2><div class="panel" style="text-align:center"><div style="font-size:64px;background:#050505;border-radius:18px;width:90px;margin:auto">?</div><h3>Ещё в разработке</h3><p class="muted">Откроется в OS 3.2 👀</p></div></section>
+<section id="codes" class="hidden"><h2>🔑 Активация кодов</h2><div class="panel"><h3>🎮 Введи игровой код</h3><p class="muted">Введи код и нажми «Активировать». Некоторые коды одноразовые, а админские можно использовать повторно.</p><input id="codeInput" type="text" placeholder="Введи код" autocomplete="off"><button class="blue" onclick="redeemCode()">Активировать</button><p id="codeStatus" class="muted">Код ещё не активирован</p></div></section>
+<section id="winterSettings" class="hidden">
+ <h2>🎄 WINTER_OS — Новый год 2027</h2>
+ <div class="panel"><h3>🎵 Новогодняя музыка</h3><p class="muted">Оригинальная мелодия OS. Музыка запускается после нажатия.</p><button class="winter-button" id="winterMusicButton" onclick="toggleWinterMusic()">🎵 Музыка: ВЫКЛ</button></div>
+ <div class="winter-banner">❄️ С Новым 2027 годом! Пусть твоя империя OS растёт! 🎁</div>
+ <div class="panel"><p class="muted">Снег и праздничное оформление работают отдельно от игрового прогресса.</p></div>
+</section>
+<section id="rebirth" class="hidden">
+ <h2>🔄 Возрождение</h2>
+ <div class="panel">
+  <h3>✨ Начать заново</h3>
+  <p class="muted">Перед сбросом появится подтверждение. Одноразовые коды снова станут доступны.</p>
+  <button class="orange" onclick="rebirthCurrent()">🔄 Возродиться в текущем мире</button>
+  <hr><button class="red" onclick="rebirthAll()">🌌 Переродиться полностью</button>
+ </div>
+</section>
+<section id="otherWorld" class="hidden">
+ <h2 id="otherWorldHeading">🌍 Мир</h2>
+ <div class="panel">
+  <p>💰 Баланс мира: <b id="otherMoney">0 ₽</b></p>
+  <p id="otherStats">Уровень развития: 1</p>
+  <p class="muted" id="otherDescription"></p>
+ </div>
+ <div class="panel">
+  <h3 id="otherBaseTitle">🏗️ База мира</h3>
+  <p>Уровень развития: <b id="otherLevel">1</b></p>
+  <button class="blue" onclick="upgradeOtherWorld()">⬆️ Улучшить базу</button>
+  <p id="otherUpgradeHint" class="muted"></p>
+ </div>
+ <div class="panel">
+  <h3 id="otherActivityTitle">🎮 Активность</h3>
+  <p id="otherActivityDescription"></p>
+  <button class="green" onclick="playOtherActivity()">🎮 Начать</button>
+  <p id="otherActivityResult" class="muted">Готов к началу!</p>
+ </div>
+ <button class="gray" onclick="returnToOzon()">🏠 Вернуться в Ozon</button>
+</section>
+<section id="redbullWorld" class="hidden">
+ <h2>🏎️ Red Bull Sport</h2>
+ <div class="panel">
+  <p>💰 Баланс мира: <b id="rbMoney">0 ₽</b></p>
+  <p>🏎️ Болид: <b id="rbCarLevel">1</b> ур. · 🧑‍✈️ Пилот: <b id="rbDriverLevel">1</b> ур. · 🛠️ Команда: <b id="rbTeamLevel">1</b> ур.</p>
+  <p>🏆 Побед: <b id="rbWins">0</b> · ❌ Поражений: <b id="rbLosses">0</b></p>
+  <p class="muted">У Red Bull Sport собственная экономика, независимая от Ozon.</p>
+ </div>
+ <div class="panel"><h3>🏁 Гоночная база</h3><p>Сила команды: <b id="rbPower">7</b></p>
+  <button class="blue" onclick="upgradeRB('car')">🔧 Улучшить болид — 1 000 000 ₽</button>
+  <button class="blue" onclick="upgradeRB('driver')">🧑‍✈️ Тренировать пилота — 1 500 000 ₽</button>
+  <button class="blue" onclick="upgradeRB('team')">🛠️ Улучшить команду — 2 000 000 ₽</button>
+ </div>
+ <div class="panel"><h3>🏎️ Гран-при</h3><p class="muted">Победа зависит от прокачки и случайного фактора.</p>
+  <button class="green" onclick="runRace()">🏁 Начать гонку</button><p id="rbRaceResult" class="muted">Команда готова к старту!</p>
+ </div>
+ <button class="gray" onclick="returnToOzon()">🏠 Вернуться в Ozon</button>
+</section>
+
+</main>
+
+<footer>OS 3.1 · Создатель проекта · OOS-помощник · ❄️ WINTER_OS 2027</footer>
+<div class="notice" id="notice"></div>
+
+<script>
+const el=id=>document.getElementById(id);
+
+let money=5000;
+let stock={};
+let transit={};
+let customers=[];
+let rating=5;
+let level=1;
+let earned=0;
+let sold=0;
+let served=0;
+let bonusTaken=false;
+let upgradesBought=[];
+let nextId=1;
+let telegramReward=false;
+let competitorAccess=true, warStarted=false, competitorIndex=0, lockedCompetitorPrices={};
+let competitors=[
+{name:"Wildberries",emoji:"🟣",money:5000,base:5000,salary:1200,employees:8},
+{name:"Яндекс Маркет",emoji:"🟡",money:15000,base:15000,salary:2500,employees:12},
+{name:"СберМегаМаркет",emoji:"🟢",money:30000,base:30000,salary:4000,employees:18},
+{name:"Мегамаркет",emoji:"🔵",money:60000,base:60000,salary:6000,employees:25},
+{name:"Финальный конкурент",emoji:"👑",money:999999999,base:999999999,salary:100000,employees:100}
+];
+let activeWarehouse=0, ownedWarehouses=[0], ownedPortals=[], currentWorld="Главный мир", globalIncomeMultiplier=1;
+let portalKeyPurchased=false;
+let adminCodeUsed=false; // совместимость со старыми сохранениями
+let usedCodes={"50Kvisits":false,redbullwin:false,newyear:false};
+let winterMusicOn=false,winterAudio=null,winterTimer=null;
+let polarBearUnlocked=false;
+let rbState={money:0,car:1,driver:1,team:1,wins:0,losses:0,freeUpgrades:0};
+const warehouseNames=["Ozon","Wildberries","Яндекс Маркет","СберМегаМаркет",...Array.from({length:46},(_,i)=>"Логистический центр №"+(i+5))];
+const warehouseMultipliers=warehouseNames.map((_,i)=>[1,1.25,1.5,1.75][i]||Number((2+(i-4)*0.15).toFixed(2)));
+const warehouseCosts=warehouseNames.map((_,i)=>i===0?0:Math.floor(100000*Math.pow(1.8,i)));
+
+const products=[
+["📱","Смартфон",12000,18000],
+["🎧","Наушники",800,1600],
+["⌚","Умные часы",2500,4300],
+["💻","Ноутбук",35000,49000],
+["🖥️","Монитор",9000,13000],
+["⌨️","Клавиатура",900,1700],
+["🖱️","Мышка",400,900],
+["🎮","Игровая приставка",28000,39000],
+["📷","Фотоаппарат",18000,26000],
+["📺","Телевизор",24000,34000],
+["🧊","Холодильник",30000,42000],
+["🧺","Стиральная машина",22000,31000],
+["🍳","Мультиварка",3500,5200],
+["☕","Кофемашина",8500,12000],
+["🧹","Пылесос",6000,9000],
+["💡","Лампа",250,600],
+["🔋","Пауэрбанк",900,1600],
+["🔌","Зарядка",300,700],
+["📚","Книга",250,550],
+["🎒","Рюкзак",1100,2200],
+["👟","Кроссовки",2200,3900],
+["👕","Футболка",400,1000],
+["🧥","Куртка",3500,6200],
+["👖","Джинсы",1300,2500],
+["🧢","Кепка",300,750],
+["👜","Сумка",1700,2900],
+["💍","Кольцо",900,1800],
+["⌚","Часы премиум",12000,19000],
+["🧸","Игрушка",350,850],
+["🚗","Машинка",250,600],
+["⚽","Футбольный мяч",700,1300],
+["🏀","Баскетбольный мяч",800,1500],
+["🚲","Велосипед",9000,14000],
+["🛴","Самокат",4000,6500],
+["🛹","Скейтборд",2200,3700],
+["🏋️","Гантели",1200,2100],
+["🧘","Коврик для йоги",500,1100],
+["🛏️","Матрас",10000,15000],
+["🪑","Кресло",7000,11000],
+["🛋️","Диван",30000,44000],
+["🪞","Зеркало",900,1700],
+["🕯️","Свеча",100,350],
+["🍽️","Набор посуды",1200,2200],
+["🥤","Термокружка",400,900],
+["🧴","Косметика",700,1400],
+["🧼","Набор мыла",200,500],
+["🧸","Плюшевый медведь",600,1200],
+["🐶","Товары для животных",500,1100],
+["🌱","Растение",300,800],
+["🪴","Горшок",250,650],
+["🚁","Дрон",18000,27000],
+["🎹","Синтезатор",15000,23000],
+["🎸","Гитара",7000,11000],
+["🥁","Барабаны",11000,17000],
+["🧩","Пазл",250,600],
+["🕹️","Ретро-консоль",3500,6000],
+["🚀","Коллекционная модель",1200,2800],
+["💎","Бриллиант",150000,250000],
+["🏎️","Суперкар-модель",80000,130000],
+["🏆","Золотой кубок",500000,1000000],
+["🧥","Пальто",500000000,600000000],
+["👗","Платье",600000000,720000000],
+["🩳","Шорты",700000000,840000000],
+["🧦","Набор носков",800000000,960000000],
+["🧤","Перчатки",900000000,1080000000],
+["🧣","Шарф",1000000000,1200000000],
+["🧢","Панама",1100000000,1320000000],
+["👒","Шляпа",1200000000,1440000000],
+["👓","Очки",1300000000,1560000000],
+["🕶️","Солнцезащитные очки",1400000000,1680000000],
+["🧳","Чемодан",1500000000,1800000000],
+["👛","Кошелёк",1600000000,1920000000],
+["💼","Деловой портфель",1700000000,2040000000],
+["🪥","Электрическая щётка",1800000000,2160000000],
+["🚿","Душевая лейка",1900000000,2280000000],
+["🧻","Держатель для бумаги",2000000000,2400000000],
+["🧽","Набор губок",2100000000,2520000000],
+["🧺","Корзина для белья",2200000000,2640000000],
+["🧯","Огнетушитель",2300000000,2760000000],
+["🔦","Фонарик",2400000000,2880000000],
+["🔭","Телескоп",2500000000,3000000000],
+["🔬","Микроскоп",2600000000,3120000000],
+["🧪","Набор для опытов",2700000000,3240000000],
+["🖨️","Принтер",2800000000,3360000000],
+["📀","Внешний SSD",2900000000,3480000000],
+["🎙️","Микрофон",3000000000,3600000000],
+["🎥","Экшн-камера",3100000000,3720000000],
+["📡","Wi-Fi роутер",3200000000,3840000000],
+["🔊","Портативная колонка",3300000000,3960000000],
+["🎧","Игровая гарнитура",3400000000,4080000000],
+["🪫","Зарядная станция",3500000000,4200000000],
+["🧰","Набор инструментов",3600000000,4320000000],
+["🔧","Электроотвёртка",3700000000,4440000000],
+["🪚","Электропила",3800000000,4560000000],
+["🪜","Стремянка",3900000000,4680000000],
+["🚪","Межкомнатная дверь",4000000000,4800000000],
+["🪟","Шторы",4100000000,4920000000],
+["🧸","Конструктор",4200000000,5040000000],
+["🛼","Роликовые коньки",4300000000,5160000000],
+["🗝️","Ключ к порталам",5000000000,1000000000]
+];
+
+const upgrades=[
+["📦","Большой склад",5000,"Увеличивает вместимость склада."],
+["🚚","Быстрая доставка",8000,"Ускоряет доставку."],
+["👥","Больше клиентов",10000,"Увеличивает поток клиентов."],
+["⭐","Сервис 2.0",12000,"Помогает сохранять рейтинг."],
+["🏪","Новый пункт выдачи",15000,"Развивает твой бизнес."],
+["🤖","Робот-сортировщик",20000,"Автоматизирует склад."],
+["📢","Реклама",25000,"Привлекает больше клиентов."],
+["💻","Компьютерная система",30000,"Улучшает управление."],
+["🚛","Грузовой автомобиль",40000,"Ускоряет логистику."],
+["🏭","Большой логистический центр",55000,"Увеличивает возможности магазина."],
+["🛡️","Защита товаров",70000,"Снижает риск потерь."],
+["👔","Менеджер",85000,"Помогает управлять магазином."],
+["🏬","Второй склад",100000,"Новый склад."],
+["✈️","Авиадоставка",130000,"Очень быстрая доставка."],
+["🌐","Международная торговля",180000,"Расширяет бизнес."],
+["🏦","Банк магазина",250000,"Улучшает финансовую систему."],
+["🧠","Искусственный интеллект",350000,"Умное управление магазином."],
+["🏙️","Огромный офис",500000,"Статус крупной компании."],
+["👑","Корпорация",750000,"Ты почти монополист!"],
+["💎","Империя маркетплейсов",1000000,"Максимальное развитие!"]
+];
+
+function notify(text){
+ let n=el("notice");
+ n.innerText=text;
+ n.style.display="block";
+ clearTimeout(window.noticeTimer);
+ window.noticeTimer=setTimeout(()=>n.style.display="none",2500);
+}
+
+function format(n){
+ return Math.floor(n).toLocaleString("ru-RU")+" ₽";
+}
+
+function tab(id){
+ document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));
+ const section=el(id);
+ if(!section){console.error("Вкладка не найдена:",id);return;}
+ section.classList.remove("hidden");
+ renderAll();
+}
+
+function update(){
+ el("money").innerText=format(money);
+ el("rating").innerText=rating.toFixed(1)+" ⭐";
+ el("sold").innerText=sold;
+ el("sold2").innerText=sold;
+ el("level").innerText=level;
+ el("earned").innerText=format(earned);
+ el("served").innerText=served;
+
+ let progress=Math.min(100,(earned/(level*1000))*100);
+ el("levelProgress").style.width=progress+"%";
+ el("levelText").innerText="Прогресс уровня: "+format(earned)+" / "+format(level*1000);
+
+ let total=Object.values(stock).reduce((a,b)=>a+b,0);
+ let moving=Object.values(transit).reduce((a,b)=>a+b,0);
+ el("stockCount").innerText=total;
+ el("transitCount").innerText=moving;
+ el("warehouseTotal").innerText=total;
+ el("transitTotal").innerText=moving;
+
+ while(earned>=level*1000) {
+  level++;
+  notify("🎉 Новый уровень: "+level+"!");
+ }
+ save();
+}
+
+function renderMarket(){
+ el("marketList").innerHTML=products.map((p,i)=>`
+ <div class="card">
+  <div class="emoji">${p[0]}</div>
+  <div class="info">
+   <h3>${p[1]}</h3>
+   <p>Закупка: <b>${format(p[2])}</b></p>
+   <p>Продажа: <span class="price">${format(p[3])}</span></p>
+   <p class="muted">Прибыль: ${format(p[3]-p[2])}</p>
+   <button class="small blue" onclick="buy(${i})">📦 Купить</button>
+  </div>
+ </div>`).join("");
+}
+
+function buy(i){
+ let p=products[i];
+ if(money<p[2]){
+  notify("❌ Недостаточно денег!");
+  return;
+ }
+ money-=p[2];
+ if(i===products.length-1) portalKeyPurchased=true;
+ transit[i]=(transit[i]||0)+1;
+ notify("📦 Товар отправлен на склад!");
+ update();
+ renderAll();
+}
+
+function deliverAll(){
+ let count=0;
+ Object.keys(transit).forEach(k=>{
+  let i=Number(k);
+  stock[i]=(stock[i]||0)+transit[k];
+  count+=transit[k];
+ });
+ transit={};
+ notify(count?"🚚 Доставлено товаров: "+count:"Нет товаров в пути");
+ update();
+ renderAll();
+}
+
+function renderWarehouse(){
+ let html="";
+ products.forEach((p,i)=>{
+  let amount=stock[i]||0;
+  let moving=transit[i]||0;
+  if(amount||moving){
+   html+=`
+   <div class="card">
+    <div class="emoji">${p[0]}</div>
+    <div class="info">
+     <h3>${p[1]}</h3>
+     <p>На складе: <b>${amount}</b></p>
+     <p>В пути: <b>${moving}</b></p>
+     <p>Цена продажи: <span class="price">${format(p[3])}</span></p>
+     <button class="small green" onclick="sell(${i})" ${amount===0?"disabled":""}>💰 Продать</button>
+     <button class="small orange" onclick="sellAll(${i})" ${amount===0?"disabled":""}>Продать всё</button>
+    </div>
+   </div>`;
+  }
+ });
+ el("warehouseList").innerHTML=html||'<div class="panel muted">На складе пока пусто. Купи товары в разделе «Закупка».</div>';
+}
+
+function sell(i){
+ if(!stock[i])return;
+ stock[i]--;
+ let price=products[i][3];
+ money+=price;
+ earned+=price-products[i][2];
+ sold++;
+ notify("💰 Продано: "+products[i][1]);
+ update();
+ renderAll();
+}
+
+function sellAll(i){
+ let amount=stock[i]||0;
+ if(!amount)return;
+ stock[i]=0;
+ let price=products[i][3];
+ money+=price*amount;
+ earned+=(price-products[i][2])*amount;
+ sold+=amount;
+ notify("💰 Продано товаров: "+amount);
+ update();
+ renderAll();
+}
+
+function spawnCustomer(){
+ if(customers.length>=10){
+  notify("Слишком много клиентов!");
+  return;
+ }
+ let available=products.map((p,i)=>i).filter(i=>(stock[i]||0)>0);
+ if(!available.length){
+  notify("Нет товаров на складе!");
+  return;
+ }
+ let i=available[Math.floor(Math.random()*available.length)];
+ customers.push({
+  id:nextId++,
+  product:i,
+  time:60
+ });
+ notify("👤 Новый клиент пришёл!");
+ renderAll();
+}
+
+function serveCustomer(id){
+ let c=customers.find(x=>x.id===id);
+ if(!c)return;
+ let i=c.product;
+ if(!stock[i]){
+  notify("Товар закончился!");
+  return;
+ }
+ stock[i]--;
+ money+=products[i][3];
+ earned+=products[i][3]-products[i][2];
+ sold++;
+ served++;
+ customers=customers.filter(x=>x.id!==id);
+ rating=Math.min(5,rating+0.05);
+ notify("😊 Клиент обслужен!");
+ update();
+ renderAll();
+}
+
+function rejectCustomer(id){
+ customers=customers.filter(x=>x.id!==id);
+ rating=Math.max(1,rating-0.1);
+ notify("Клиент ушёл недовольным!");
+ update();
+ renderAll();
+}
+
+function renderCustomers(){
+ el("customerList").innerHTML=customers.map(c=>{
+  let p=products[c.product];
+  return `
+  <div class="card">
+   <div class="emoji">👤</div>
+   <div class="info">
+    <h3>Клиент №${c.id}</h3>
+    <p>Хочет получить: ${p[0]} ${p[1]}</p>
+    <p class="${c.time<20?"danger":"happy"}">Ожидание: ${c.time} сек.</p>
+    <button class="small green" onclick="serveCustomer(${c.id})">✅ Выдать товар</button>
+    <button class="small red" onclick="rejectCustomer(${c.id})">❌ Отказать</button>
+   </div>
+  </div>`;
+ }).join("")||'<div class="panel muted">Пока нет клиентов. Нажми «Новый клиент».</div>';
+}
+
+function renderUpgrades(){
+ el("upgradeList").innerHTML=upgrades.map((u,i)=>`
+ <div class="card">
+  <div class="emoji">${u[0]}</div>
+  <div class="info">
+   <h3>${u[1]}</h3>
+   <p>${u[3]}</p>
+   <p class="price">${format(u[2])}</p>
+   <button class="small ${upgradesBought.includes(i)?"gray":"blue"}"
+   onclick="buyUpgrade(${i})"
+   ${upgradesBought.includes(i)?"disabled":""}>
+   ${upgradesBought.includes(i)?"✅ Куплено":"🚀 Купить"}
+   </button>
+  </div>
+ </div>`).join("");
+}
+
+function buyUpgrade(i){
+ if(upgradesBought.includes(i))return;
+ let u=upgrades[i];
+ if(money<u[2]){
+  notify("Не хватает денег!");
+  return;
+ }
+ money-=u[2];
+ upgradesBought.push(i);
+ notify("🚀 Улучшение куплено!");
+ update();
+ renderAll();
+}
+
+
+
+function telegramTask(){
+ if(telegramReward){notify("Награда уже получена!");return;}
+ window.open("https://t.me/afgplaz","_blank");
+ money+=5000;
+ telegramReward=true;
+ el("telegramButton").disabled=true;
+ el("telegramButton").innerText="✅ Выполнено";
+ el("taskStatus").innerText="🎉 Получено 5 000 ₽!";
+ notify("🎉 За задание начислено 5 000 ₽!");
+ update();
+}
+
+function competitorPrice(c){return Math.floor(c.base+money+c.money);}
+function getCompetitorPrice(i){
+ if(i===4)return 999999999;
+ if(warStarted && lockedCompetitorPrices[i]!==undefined)return lockedCompetitorPrices[i];
+ return competitorPrice(competitors[i]);
+}
+function renderCompetitors(){
+ const access=el("competitorAccess"),game=el("competitorGame");
+ if(!competitorAccess){competitorAccess=true;}
+ access.innerHTML="";game.classList.remove("hidden");
+ el("warStage").innerText=Math.min(competitorIndex+1,competitors.length);
+ el("declareWarButton").classList.toggle("hidden",warStarted);
+ el("warStatus").innerText=warStarted?"⚔️ Война активна! Цена победы за текущего конкурента зафиксирована.":"Нажми кнопку, когда будешь готов начать войну. После нажатия цена победы зафиксируется.";
+ el("competitorList").innerHTML=competitors.map((c,i)=>{let done=i<competitorIndex,cur=i===competitorIndex,cost=getCompetitorPrice(i);return `<div class="card"><div class="emoji">${c.emoji}</div><div class="info"><h3>${c.name} ${done?"✅ Побеждён":cur?"⚔️ Текущая цель":"🔒 Следующий"}</h3><p>Деньги: ${format(c.money)} · Сотрудники: ${c.employees}</p><p>Зарплата: ${format(c.salary)}</p>${cur?`<p class="price">Цена победы: ${format(cost)}</p><button class="small red" onclick="defeatCompetitor()" ${!warStarted||money<cost?"disabled":""}>🏆 Победить</button>`:""}</div></div>`}).join("");
+}
+function unlockCompetitors(){competitorAccess=true;notify("Вкладка конкурентов открыта бесплатно!");renderCompetitors();}
+function declareWar(){
+ if(!competitorAccess||warStarted||competitorIndex>=competitors.length)return;
+ lockedCompetitorPrices[competitorIndex]=competitorIndex===4?999999999:competitorPrice(competitors[competitorIndex]);
+ warStarted=true;
+ save();
+ notify("⚔️ Война объявлена! Цена победы зафиксирована и больше не изменится.");
+ renderCompetitors();
+}
+function defeatCompetitor(){
+ if(!warStarted||competitorIndex>=competitors.length)return;
+ let c=competitors[competitorIndex],cost=getCompetitorPrice(competitorIndex);
+ if(money<cost){notify("Не хватает денег на победу!");return;}
+ money-=cost;
+ money+=c.money+c.employees*c.salary;
+ competitorIndex++;
+ if(competitorIndex===competitors.length){
+  money+=1000000000;globalIncomeMultiplier=12.25;
+  notify("👑 Все конкуренты побеждены! +1 000 000 000 ₽ и x12.25");
+ }else{
+  lockedCompetitorPrices[competitorIndex]=competitorIndex===4?999999999:competitorPrice(competitors[competitorIndex]);
+  notify("🏆 Деньги и сотрудники конкурента перешли к тебе! Цена следующей цели зафиксирована.");
+ }
+ update();renderCompetitors();
+}
+function renderWarehouseNetwork(){el("activeWarehouseName").innerText=warehouseNames[activeWarehouse];el("activeWarehouseMultiplier").innerText="x"+warehouseMultipliers[activeWarehouse].toFixed(2);el("warehouseNetwork").innerHTML=warehouseNames.map((n,i)=>`<div class="card"><div class="emoji">🏢</div><div class="info"><h3>Склад ${i+1}: ${n}</h3><p>Множитель: x${warehouseMultipliers[i].toFixed(2)}</p><p>Цена: ${format(warehouseCosts[i])}</p><button class="small" onclick="${ownedWarehouses.includes(i)?`selectWarehouse(${i})`:`buyWarehouse(${i})`}" ${!ownedWarehouses.includes(i)&&money<warehouseCosts[i]?"disabled":""}>${ownedWarehouses.includes(i)?(activeWarehouse===i?"Активен":"Выбрать"):"Купить"}</button></div></div>`).join("");}
+function buyWarehouse(i){if(money<warehouseCosts[i]||ownedWarehouses.includes(i))return;money-=warehouseCosts[i];ownedWarehouses.push(i);activeWarehouse=i;update();renderWarehouseNetwork();}
+function selectWarehouse(i){activeWarehouse=i;renderWarehouseNetwork();}
+function buyPortal(){
+ if(ownedPortals.includes("Red Bull Sport")){notify("Портал уже открыт");return;}
+ if(!portalKeyPurchased){notify("Сначала купи «Ключ к порталам» за 5 000 000 000 ₽ в разделе закупки!");return;}
+ ownedPortals.push("Red Bull Sport");update();renderPortals();notify("🗝️ Ключ активирован! Портал открыт бесплатно!");
+}
+function renderPortals(){el("portalWorlds").innerHTML=`<div class="card"><div class="emoji">🏎️</div><div class="info"><h3>Red Bull Sport</h3><p>${ownedPortals.includes("Red Bull Sport")?"Открыт":"Закрыт"}</p><button class="small" ${ownedPortals.includes("Red Bull Sport")?"":"disabled"} onclick="enterWorld('Red Bull Sport')">${currentWorld==="Red Bull Sport"?"Ты здесь":"Перейти"}</button></div></div><p class="muted">🚧 Скоро будет добавлено больше миров! Сейчас с ними возникли проблемы. Мы работаем над исправлением.</p>`;}
+function enterWorld(w){
+  if(!ownedPortals.includes(w)){notify("Сначала открой этот портал!");return;}
+  currentWorld=w;
+  document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));
+  if(w==="Red Bull Sport"){
+    document.body.className=document.body.className.replace(/\\btheme-[\\w-]+\\b/g,"");
+    document.body.classList.add("rb-world");
+    el("ozonTitle").innerText="Red Bull Sport";
+    el("ozonSubtitle").innerText="🏎️ Motorsport · Гоночная империя";
+    el("redbullWorld").classList.remove("hidden");
+    renderRB();
+  }else{
+    document.body.classList.remove("rb-world");
+    const cfg=worldConfigs[w];
+    document.body.classList.add(cfg.theme);
+    el("ozonTitle").innerText=cfg.title;
+    el("ozonSubtitle").innerText=cfg.subtitle;
+    el("otherWorld").classList.remove("hidden");
+    renderOtherWorld();
+  }
+  renderPortals();save();notify("Добро пожаловать в "+w+"!");
+}
+function returnToOzon(){
+  currentWorld="Главный мир";
+  document.body.classList.remove("rb-world","theme-tech","theme-fashion","theme-auto","theme-space");
+  el("ozonTitle").innerText="OS";
+  el("ozonSubtitle").innerText="Версия 3.1 · Симулятор маркетплейса";
+  tab("home");renderPortals();save();notify("Ты вернулся в Ozon!");
+}
+
+const worldConfigs={
+ "Tech World":{title:"Tech World",subtitle:"💻 Технологии · Империя инноваций",theme:"theme-tech",heading:"💻 Технологическая империя",description:"Создавай гаджеты, развивай лабораторию и нанимай инженеров.",base:"🧪 Исследовательская лаборатория",activity:"📱 Разработка гаджета",activityDesc:"Запусти разработку нового устройства."},
+ "Fashion World":{title:"Fashion World",subtitle:"👗 Fashion · Мир моды",theme:"theme-fashion",heading:"👗 Дом моды",description:"Развивай ателье, создавай коллекции и готовь показы.",base:"🧵 Ателье и дизайн-студия",activity:"👠 Модный показ",activityDesc:"Проведи показ новой коллекции."},
+ "Auto World":{title:"Auto World",subtitle:"🚗 Автоиндустрия · Мир машин",theme:"theme-auto",heading:"🚗 Автомобильная империя",description:"Строй автосалоны, развивай сервис и выпускай автомобили.",base:"🔧 Автозавод и сервис",activity:"🏁 Автозаказ",activityDesc:"Выполни заказ на автомобиль."},
+ "Space World":{title:"Space World",subtitle:"🚀 Космос · Покорение галактики",theme:"theme-space",heading:"🚀 Космическая программа",description:"Строй станции, готовь экипажи и отправляй экспедиции.",base:"🛰️ Космическая станция",activity:"🌌 Экспедиция",activityDesc:"Отправь корабль на исследование планеты."}
+};
+let otherWorldStates={};
+function worldState(w=currentWorld){
+ if(!otherWorldStates[w])otherWorldStates[w]={money:0,level:1,freeUpgrades:0,activities:0};
+ return otherWorldStates[w];
+}
+function renderOtherWorld(){
+ const c=worldConfigs[currentWorld],s=worldState();
+ el("otherWorldHeading").innerText=c.heading;
+ el("otherMoney").innerText=format(s.money);
+ el("otherStats").innerText="Уровень: "+s.level+" · Выполнено активностей: "+s.activities;
+ el("otherDescription").innerText=c.description;
+ el("otherBaseTitle").innerText=c.base;
+ el("otherLevel").innerText=s.level;
+ el("otherActivityTitle").innerText=c.activity;
+ el("otherActivityDescription").innerText=c.activityDesc;
+ el("otherUpgradeHint").innerText=s.freeUpgrades<3?"Следующее улучшение бесплатно ("+(3-s.freeUpgrades)+" из 3 бесплатных осталось).":"Следующее улучшение: "+format(1000000*s.level)+" ₽.";
+}
+function upgradeOtherWorld(){
+ const s=worldState(),cost=s.freeUpgrades<3?0:1000000*s.level;
+ if(s.money<cost){notify("Не хватает денег в этом мире!");return;}
+ s.money-=cost;s.level++;if(s.freeUpgrades<3)s.freeUpgrades++;
+ renderOtherWorld();save();notify(cost===0?"🎁 Бесплатное улучшение!":"Улучшение куплено!");
+}
+function playOtherActivity(){
+ const s=worldState(),gain=(500000*s.level)+Math.floor(Math.random()*250000);
+ s.money+=gain;s.activities++;
+ el("otherActivityResult").innerText="🎉 Успех! Заработано "+format(gain)+" ₽.";
+ renderOtherWorld();save();
+}
+function rbPower(){return rbState.car*3+rbState.driver*2+rbState.team*2;}
+function renderRB(){
+ el("rbMoney").innerText=format(rbState.money);
+ el("rbCarLevel").innerText=rbState.car;
+ el("rbDriverLevel").innerText=rbState.driver;
+ el("rbTeamLevel").innerText=rbState.team;
+ el("rbWins").innerText=rbState.wins;
+ el("rbLosses").innerText=rbState.losses;
+ el("rbPower").innerText=rbPower();
+ const hint=rbState.freeUpgrades<3?" · Первые "+(3-rbState.freeUpgrades)+" улучшения бесплатно":" · Цены снижены";
+
+}
+function upgradeRB(type){
+ const cfg={car:{cost:1000000,key:"car"},driver:{cost:1500000,key:"driver"},team:{cost:2000000,key:"team"}};
+ const item=cfg[type];if(!item)return;
+ const cost=rbState.freeUpgrades<3?0:item.cost;
+ if(rbState.money<cost){notify("В Red Bull Sport не хватает денег!");return;}
+ rbState.money-=cost;rbState[item.key]++;if(rbState.freeUpgrades<3)rbState.freeUpgrades++;
+ renderRB();save();notify(cost===0?"🎁 Бесплатная прокачка!":"Улучшение куплено!");
+}
+function runRace(){
+ const rival=7+Math.floor(Math.random()*13);
+ const score=rbPower()+(Math.random()*8-4);
+ if(score>=rival){rbState.money+=50000000;rbState.wins++;el("rbRaceResult").innerText="🏆 Победа! +50 000 000 ₽";}
+ else{rbState.money-=50000000;rbState.losses++;el("rbRaceResult").innerText="💥 Поражение! −50 000 000 ₽. Баланс может быть отрицательным.";}
+ renderRB();save();
+}
+
+function redeemCode(){
+  const input=el("codeInput");
+  const status=el("codeStatus");
+  const code=(input.value||"").trim().toUpperCase();
+
+  if(code==="NEW YEAR"){
+    if(usedCodes.newyear){status.innerText="🎄 Этот новогодний код уже использован в данном сохранении.";notify("Код уже активирован!");return;}
+    money+=202620270;usedCodes.newyear=true;input.value="";
+    status.innerText="🎄 NEW YEAR активирован! Начислено 202 620 270 ₽. С Новым годом!";
+    notify("🎁 +202 620 270 ₽!");update();save();return;
+  }
+
+  if(code==="OSGPT"){
+    money+=10000000000;
+    input.value="";
+    status.innerText="✅ OSGPT активирован! Начислено 10 000 000 000 ₽. Код можно использовать снова.";
+    notify("🎉 +10 млрд ₽!");
+    update(); save(); return;
+  }
+
+  if(code==="REDBULLTOP"){
+    money=0;
+    input.value="";
+    status.innerText="✅ REDBULLTOP активирован! Баланс установлен на 0 ₽. Код можно использовать снова.";
+    notify("🔄 Баланс обнулён!");
+    update(); save(); return;
+  }
+
+  if(code==="50KVISITS"){
+    if(usedCodes["50Kvisits"]){
+      status.innerText="Этот код уже использован в данном сохранении.";
+      notify("Код уже активирован!"); return;
+    }
+    money+=50000;
+    usedCodes["50Kvisits"]=true;
+    input.value="";
+    status.innerText="✅ 50Kvisits активирован! Начислено 50 000 ₽.";
+    notify("🎉 +50 000 ₽!");
+    update(); save(); return;
+  }
+
+  if(code==="REDBULLWIN"){
+    if(usedCodes.redbullwin){
+      status.innerText="Этот код уже использован в данном сохранении.";
+      notify("Код уже активирован!"); return;
+    }
+    if(money>=0){
+      status.innerText="Код redbullwin сработает только при отрицательном балансе.";
+      notify("Сначала баланс должен стать отрицательным."); return;
+    }
+    money=0;
+    usedCodes.redbullwin=true;
+    input.value="";
+    status.innerText="✅ redbullwin активирован! Отрицательный баланс исправлен до 0 ₽.";
+    notify("🐂 Баланс восстановлен до 0 ₽!");
+    update(); save(); return;
+  }
+
+  if(code==="NOVEMBER"){
+    polarBearUnlocked=false;
+    el("polarBearEasterEgg").classList.add("hidden");
+    input.value="";
+    status.innerText="🍂 Код November активирован! Пасхалка с белым медведем убрана.";
+    notify("🍂 Пасхалка убрана!");
+    save(); return;
+  }
+
+  if(code==="POLAR BEAR"){
+    if(polarBearUnlocked){
+      status.innerText="🐻‍❄️ Пасхалка уже открыта!";
+      notify("Пасхалка уже открыта!"); return;
+    }
+    polarBearUnlocked=true;
+    el("polarBearEasterEgg").classList.remove("hidden");
+    input.value="";
+    status.innerText="🐻‍❄️ Пасхалка открыта: remember November 2026 coming!";
+    notify("🐻‍❄️ Белый медведь найден!");
+    save(); return;
+  }
+
+  status.innerText="Неверный код.";
+  notify("❌ Неверный код");
+}
+
+function resetOneTimeCodes(){usedCodes={"50Kvisits":false,redbullwin:false,newyear:false};}
+function resetOzonProgress(){
+ money=5000;stock={};transit={};customers=[];rating=5;level=1;earned=0;sold=0;served=0;
+ bonusTaken=false;upgradesBought=[];nextId=1;telegramReward=false;
+ competitorAccess=true;warStarted=false;competitorIndex=0;lockedCompetitorPrices={};
+ competitors=[
+  {name:"Wildberries",emoji:"🟣",money:5000,base:5000,salary:1200,employees:8},
+  {name:"Яндекс Маркет",emoji:"🟡",money:15000,base:15000,salary:2500,employees:12},
+  {name:"СберМегаМаркет",emoji:"🟢",money:30000,base:30000,salary:4000,employees:18},
+  {name:"Мегамаркет",emoji:"🔵",money:60000,base:60000,salary:6000,employees:25},
+  {name:"Финальный конкурент",emoji:"👑",money:999999999,base:999999999,salary:100000,employees:100}
+ ];
+ activeWarehouse=0;ownedWarehouses=[0];globalIncomeMultiplier=1;
+ ownedPortals=[];currentWorld="Главный мир";portalKeyPurchased=false;
+ adminCodeUsed=false;polarBearUnlocked=false;
+ el("polarBearEasterEgg").classList.add("hidden");
+ el("telegramButton").disabled=false;el("telegramButton").innerText="✈️ Перейти в Telegram";
+ el("taskStatus").innerText="Задание не выполнено";
+}
+function rebirthCurrent(){
+ if(!confirm("Сбросить прогресс текущего мира? Это действие нельзя отменить."))return;
+ if(currentWorld==="Red Bull Sport"){rbState={money:0,car:1,driver:1,team:1,wins:0,losses:0,freeUpgrades:0};renderRB();}
+ else{resetOzonProgress();update();renderAll();}
+ resetOneTimeCodes();save();notify("🔄 Текущий мир возрождён!");
+}
+function rebirthAll(){
+ if(!confirm("Полностью сбросить ВСЕ миры и весь прогресс? Это действие нельзя отменить."))return;
+ resetOzonProgress();rbState={money:0,car:1,driver:1,team:1,wins:0,losses:0,freeUpgrades:0};otherWorldStates={};
+ resetOneTimeCodes();tab("home");update();renderAll();save();notify("🌌 Полное возрождение!");
+}
+
+function renderAll(){
+ renderMarket();
+ renderWarehouse();
+ renderCustomers();
+ renderUpgrades();
+ renderCompetitors();
+ renderWarehouseNetwork();
+ renderPortals();
+}
+
+function save(){
+ let data={
+  money,stock,transit,customers,rating,level,earned,sold,served,
+  bonusTaken,upgradesBought,nextId,telegramReward,adminCodeUsed,usedCodes,polarBearUnlocked,rbState,otherWorldStates,competitorAccess,warStarted,competitorIndex,lockedCompetitorPrices,competitors,activeWarehouse,ownedWarehouses,ownedPortals,currentWorld,globalIncomeMultiplier,portalKeyPurchased
+ };
+ localStorage.setItem("ozonSimulator3",JSON.stringify(data));
+}
+
+function load(){
+ try{
+  let d=JSON.parse(localStorage.getItem("ozonSimulator3"));
+  if(!d)return;
+  money=d.money??5000;
+  stock=d.stock??{};
+  transit=d.transit??{};
+  customers=d.customers??[];
+  rating=d.rating??5;
+  level=d.level??1;
+  earned=d.earned??0;
+  sold=d.sold??0;
+  served=d.served??0;
+  bonusTaken=d.bonusTaken??false;
+  upgradesBought=d.upgradesBought??[];
+  nextId=d.nextId??1;
+  telegramReward=d.telegramReward??false;
+  adminCodeUsed=d.adminCodeUsed??false;
+  usedCodes={...usedCodes,...(d.usedCodes||{})};
+  polarBearUnlocked=d.polarBearUnlocked??false;
+  rbState=d.rbState??{money:0,car:1,driver:1,team:1,wins:0,losses:0,freeUpgrades:0};
+  otherWorldStates=d.otherWorldStates??{};
+ competitorAccess=true; warStarted=d.warStarted??false; competitorIndex=d.competitorIndex??0; lockedCompetitorPrices=d.lockedCompetitorPrices??{};
+ if(d.competitors)competitors=d.competitors;
+ if(warStarted && lockedCompetitorPrices[competitorIndex]===undefined && competitorIndex<competitors.length) lockedCompetitorPrices[competitorIndex]=competitorIndex===4?999999999:competitorPrice(competitors[competitorIndex]);
+ activeWarehouse=d.activeWarehouse??0; ownedWarehouses=d.ownedWarehouses??[0];
+ ownedPortals=d.ownedPortals??[]; currentWorld=d.currentWorld??"Главный мир"; globalIncomeMultiplier=d.globalIncomeMultiplier??1; portalKeyPurchased=d.portalKeyPurchased??false;
+ }catch(e){
+  console.log("Ошибка загрузки сохранения",e);
+ }
+}
+
+setInterval(()=>{
+ let changed=false;
+ customers.forEach(c=>{
+  c.time--;
+  if(c.time<=0){
+   rating=Math.max(1,rating-0.1);
+   customers=customers.filter(x=>x.id!==c.id);
+   notify("😡 Клиент не дождался и ушёл!");
+   changed=true;
+  }
+ });
+ if(changed){
+  update();
+  renderAll();
+ }
+ save();
+},1000);
+
+setInterval(()=>{
+ if(Math.random()<0.35&&customers.length<5){
+  spawnCustomer();
+ }
+},12000);
+
+
+// Оригинальная короткая праздничная мелодия на Web Audio API
+function toggleWinterMusic(){winterMusicOn=!winterMusicOn;el("winterMusicButton").innerText="🎵 Музыка: "+(winterMusicOn?"ВКЛ":"ВЫКЛ");if(winterMusicOn)startWinterMusic();else stopWinterMusic();saveWinterSetting();}
+function startWinterMusic(){try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;stopWinterMusic();winterAudio=new AC();const notes=[523.25,659.25,783.99,659.25,587.33,698.46,783.99,1046.5];let i=0;const play=()=>{if(!winterMusicOn||!winterAudio)return;const o=winterAudio.createOscillator(),g=winterAudio.createGain();o.type="sine";o.frequency.value=notes[i++%notes.length];g.gain.setValueAtTime(.0001,winterAudio.currentTime);g.gain.exponentialRampToValueAtTime(.045,winterAudio.currentTime+.03);g.gain.exponentialRampToValueAtTime(.0001,winterAudio.currentTime+.32);o.connect(g);g.connect(winterAudio.destination);o.start();o.stop(winterAudio.currentTime+.34);};play();winterTimer=setInterval(play,380);}catch(e){notify("Музыка недоступна в этом браузере.");}}
+function stopWinterMusic(){if(winterTimer)clearInterval(winterTimer);winterTimer=null;if(winterAudio){winterAudio.close().catch(()=>{});winterAudio=null;}}
+function saveWinterSetting(){try{localStorage.setItem("osWinterMusic",winterMusicOn?"1":"0");}catch(e){}}
+function loadWinterSetting(){try{winterMusicOn=localStorage.getItem("osWinterMusic")==="1";}catch(e){}if(el("winterMusicButton"))el("winterMusicButton").innerText="🎵 Музыка: "+(winterMusicOn?"ВКЛ":"ВЫКЛ");}
+function makeSnow(){if(document.hidden)return;const f=document.createElement("div");f.className="winter-flake";f.textContent=["❄","❅","❆"][Math.floor(Math.random()*3)];f.style.left=Math.random()*100+"vw";f.style.fontSize=(10+Math.random()*15)+"px";const d=6+Math.random()*7;f.style.animationDuration=d+"s";document.body.appendChild(f);setTimeout(()=>f.remove(),d*1000);}
+setInterval(makeSnow,650);
+
+load();
+loadWinterSetting();
+if(polarBearUnlocked)el("polarBearEasterEgg").classList.remove("hidden");
+update();
+renderAll(); renderCompetitors(); renderWarehouseNetwork(); renderPortals();
+
+if(telegramReward){
+ el("telegramButton").disabled=true;
+ el("telegramButton").innerText="✅ Выполнено";
+ el("taskStatus").innerText="🎉 Награда уже получена!";
+}
+</script>
+</body>
+</html>
